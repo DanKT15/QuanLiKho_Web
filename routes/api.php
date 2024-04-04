@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/trangthai/index', [TestApiController::class, 'index'])->middleware(['Apiuser']);
+Route::post('/trangthai/testpost', [TestApiController::class, 'testpost'])->middleware(['Apiuser']);
 
 // test login api
 Route::post('login', [AuthenticatedSessionController::class, 'storeAPI'])->middleware(['guest']);

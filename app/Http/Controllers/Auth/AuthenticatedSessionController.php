@@ -41,7 +41,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response(['message' => 'Login successfully'], 200);
+        $token = $token = csrf_token();
+
+        return response(['message' => 'Login successfully', 'token' => $token], 200);
     }
 
     /**
