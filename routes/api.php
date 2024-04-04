@@ -22,7 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/trangthai/index', [TestApiController::class, 'index']);
+Route::get('/trangthai/index', [TestApiController::class, 'index'])->middleware(['Apiuser']);
 
 // test login api
 Route::post('login', [AuthenticatedSessionController::class, 'storeAPI'])->middleware(['guest']);
+Route::post('logout', [AuthenticatedSessionController::class, 'destroyAPI'])->middleware(['Apilogout']);

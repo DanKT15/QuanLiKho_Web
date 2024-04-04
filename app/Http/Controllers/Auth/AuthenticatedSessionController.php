@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response(['message' => 'Retrieved successfully'], 200);
+        return response(['message' => 'Login successfully'], 200);
     }
 
     /**
@@ -59,5 +59,16 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function destroyAPI(Request $request)
+    {
+        Auth::guard('api')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response(['message' => 'Logout successfully'], 200);
     }
 }
