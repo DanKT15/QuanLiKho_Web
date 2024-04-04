@@ -35,6 +35,15 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
+    public function storeAPI(LoginRequest $request)
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return response(['message' => 'Retrieved successfully'], 200);
+    }
+
     /**
      * Destroy an authenticated session.
      *
