@@ -23,14 +23,31 @@ class AuthAPI
 
         if (Auth::check()) {
 
-            $id = Auth::id();
-            $check =  Nhansu::firstWhere('MANV', $id);
+            $header = $request->header('X-CSRF-TOKEN');
+            $token = csrf_token();
 
-            if ($check->QUANTRI === 'nhanvien') {
-                return $next($request);
-            }
+            if (!empty($header) && !empty($token)) {
+
+                if ($header === $token) {
+                    
+                    $id = Auth::id();
+                    $check =  Nhansu::firstWhere('MANV', $id);
+
+                    if ($check->QUANTRI === 'nhanvien') {
+                        return $next($request);
+                    }
+                    else {
+                        return response(['message' => 'You are not authorized to use the system'], 200);
+                    }
+
+                }
+                else {
+                    return response(['message' => 'Unable to validate token'], 200);
+                }
+
+            } 
             else {
-                return response(['message' => 'You are not authorized to use the system'], 200);
+                return response(['message' => 'Requires token for authentication'], 200);
             }
 
         }

@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Nhansu;
+use Illuminate\Support\Facades\DB;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -41,7 +43,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $token = $token = csrf_token();
+        $token = csrf_token();
 
         return response(['message' => 'Login successfully', 'token' => $token], 200);
     }
@@ -72,5 +74,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return response(['message' => 'Logout successfully'], 200);
+    }
+
+    public function infoAPI() {
+
+        $idnhanvien = Auth::id();
+        $nhanvien =  Nhansu::firstWhere('MANV', $idnhanvien);
+
+        return response(['message' => 'Retrieved successfully', 'id user' => $idnhanvien, 'info user' => $nhanvien], 200);
     }
 }

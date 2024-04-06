@@ -44,7 +44,6 @@ class PhieunhapxuatController extends Controller
         ->select('phieunhapxuat.id','phieunhapxuat.SOPHIEU','phieunhapxuat.MANV','phieunhapxuat.MADC','phieunhapxuat.MATT', 'phieunhapxuat.NGAYLAP')
         ->get();
     
-
         $Trangthai = Trangthai::all();
 
         return view("giaodien.app", [

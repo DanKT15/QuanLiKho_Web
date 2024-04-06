@@ -22,9 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/trangthai/index', [TestApiController::class, 'index'])->middleware(['Apiuser']);
-Route::post('/trangthai/testpost', [TestApiController::class, 'testpost'])->middleware(['Apiuser']);
+Route::get('/test/tonkho', [TestApiController::class, 'tonkho'])->middleware(['Apiuser']);
+Route::get('/test/phieukiem', [TestApiController::class, 'phieukiem'])->middleware(['Apiuser']);
+Route::get('/test/phieukiemct/{id}', [TestApiController::class, 'phieukiemct'])->middleware(['Apiuser']);
+
+Route::post('/test/testpost', [TestApiController::class, 'testpost'])->middleware(['Apiuser']);
 
 // test login api
 Route::post('login', [AuthenticatedSessionController::class, 'storeAPI'])->middleware(['guest']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroyAPI'])->middleware(['Apilogout']);
+
+Route::post('info', [AuthenticatedSessionController::class, 'infoAPI'])->middleware(['Apiuser']);
