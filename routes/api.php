@@ -30,7 +30,7 @@ Route::post('/test/testpost', [TestApiController::class, 'testpost'])->middlewar
 Route::get('/test/testget', [TestApiController::class, 'testget']);
 
 // test login api
-Route::post('login', [AuthenticatedSessionController::class, 'storeAPI'])->middleware(['guest']);
+Route::post('login', [AuthenticatedSessionController::class, 'storeAPI']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroyAPI'])->middleware(['Apilogout']);
 
 Route::get('info', [AuthenticatedSessionController::class, 'infoAPI'])->middleware(['Apiuser']);

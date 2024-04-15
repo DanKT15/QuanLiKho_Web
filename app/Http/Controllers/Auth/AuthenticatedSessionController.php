@@ -8,7 +8,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Nhansu;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -37,15 +39,40 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-    public function storeAPI(LoginRequest $request)
+    public function storeAPI(Request $request)
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
+        $throttleKey = Str::lower($request->email).'|'.$request->ip();
 
-        $token = csrf_token();
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+            return response(['message' => 'You may try again in '.$seconds.' seconds.', 'errors' => 1], 200);
+        }
 
-        return response(['message' => 'Login successfully', 'token' => $token, 'errors' => 0], 200);
+        if (Auth::check()) {
+            return response(['message' => 'The user is logged in...', 'errors' => 1], 200);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response(['message' => $validator->errors(), 'errors' => 1], 200);
+        }
+
+        if(Auth::attempt($request->all())){ 
+
+            $request->session()->regenerate();
+            $token = csrf_token();
+            RateLimiter::clear($throttleKey);
+    
+            return response(['message' => 'Login successfully', 'token' => $token, 'errors' => 0], 200);
+        } 
+        else{ 
+            return response(['message' => 'Login failed', 'errors' => 1], 200);
+        }
     }
 
     /**
@@ -82,6 +109,6 @@ class AuthenticatedSessionController extends Controller
         $nhanvien =  Nhansu::firstWhere('MANV', $idnhanvien);
         $token = csrf_token();
 
-        return response(['message' => 'Retrieved successfully', 'errors' => 0, 'token' => $token, 'id user' => $idnhanvien, 'info user' => $nhanvien], 200);
+        return response(['message' => 'Retrieved successfully', 'errors' => 0, 'info user' => $nhanvien, 'token' => $token], 200);
     }
 }
