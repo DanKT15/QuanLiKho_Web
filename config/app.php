@@ -52,7 +52,9 @@ return [
     |
     */
 
+    
     'url' => env('APP_URL', 'http://localhost'),
+    // php artisan serve --host 192.168.1.11 --port 8000
 
     'asset_url' => env('ASSET_URL', null),
 

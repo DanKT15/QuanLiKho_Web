@@ -1,0 +1,8 @@
+
+dia chi ipv4 xem theo mang ket noi
+
+port doi den khi dung duoc
+
+tat tuong lua cho mạng
+
+php artisan serve --host 192.168.88.160 --port 8082

@@ -91,4 +91,8 @@ class TestApiController extends Controller
 
         return response(['message' => 'Post-test Retrieved successfully', 'param' => $param, 'token' => $token], 200);
     }
+
+    public function testget() {
+        return response()->json(['message' => 'Post-test Retrieved successfully'], 200);
+    }
 }
