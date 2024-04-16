@@ -25,7 +25,7 @@ class LogoutAPI
             return $next($request);
         }
         else {
-            return response(['message' => 'You are not logged into the system'], 200);
+            return response(['message' => 'You are not logged into the system', 'errors' => 1], 200);
         }
 
     }
