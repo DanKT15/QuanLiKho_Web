@@ -26,11 +26,11 @@ Route::get('/test/tonkho', [TestApiController::class, 'tonkho'])->middleware(['A
 Route::get('/test/phieukiem', [TestApiController::class, 'phieukiem'])->middleware(['Apiuser']);
 Route::get('/test/phieukiemct/{id}', [TestApiController::class, 'phieukiemct'])->middleware(['Apiuser']);
 
-Route::post('/test/testpost', [TestApiController::class, 'testpost'])->middleware(['Apiuser']);
+Route::post('/test/testpost', [TestApiController::class, 'testpost']);
 Route::get('/test/testget', [TestApiController::class, 'testget']);
 
-// test login api
+
+// login api
 Route::post('login', [AuthenticatedSessionController::class, 'storeAPI']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroyAPI'])->middleware(['Apilogout']);
-
 Route::get('info', [AuthenticatedSessionController::class, 'infoAPI'])->middleware(['Apiuser']);

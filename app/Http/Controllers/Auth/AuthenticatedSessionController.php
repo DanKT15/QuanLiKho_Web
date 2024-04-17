@@ -105,10 +105,13 @@ class AuthenticatedSessionController extends Controller
 
     public function infoAPI() {
 
-        $idnhanvien = Auth::id();
-        $nhanvien =  Nhansu::firstWhere('MANV', $idnhanvien);
         $token = csrf_token();
 
-        return response(['message' => 'Retrieved successfully', 'errors' => 0, 'info user' => $nhanvien, 'token' => $token], 200);
+        if (!empty($token)) {
+            return response(['message' => 'Retrieved successfully', 'errors' => 0, 'token' => $token], 200);
+        } else {
+            return response(['message' => 'token do not exist', 'errors' => 1], 200);
+        }
+        
     }
 }

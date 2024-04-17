@@ -85,11 +85,9 @@ class TestApiController extends Controller
 
     public function testpost(Request $request) {
 
-        $param = $request->param;
+        $data = $request->json()->all();
 
-        $token = csrf_token();
-
-        return response(['message' => 'Post-test Retrieved successfully', 'param' => $param, 'token' => $token], 200);
+        return response(['message' => 'Post-test Retrieved successfully', 'data' => $data['object']['2']], 200);
     }
 
     public function testget() {
