@@ -87,7 +87,7 @@ class TestApiController extends Controller
 
         $data = $request->json()->all();
 
-        return response(['message' => 'Post-test Retrieved successfully', 'data' => $data['object']['2']], 200);
+        return response(['message' => 'Post-test Retrieved successfully', 'data' => $data['object'][0]['sl']], 200);
     }
 
     public function testget() {
