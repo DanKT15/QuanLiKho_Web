@@ -37,4 +37,4 @@ Route::post('/addphieu', [PhieunhapxuatController::class, 'store'])->middleware(
 // login api
 Route::post('login', [AuthenticatedSessionController::class, 'storeAPI']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroyAPI'])->middleware(['Apilogout']);
-Route::get('info', [AuthenticatedSessionController::class, 'infoAPI'])->middleware(['Apiuser']);
+Route::get('info', [AuthenticatedSessionController::class, 'infoAPI']);

@@ -5,4 +5,4 @@ port doi den khi dung duoc
 
 tat tuong lua cho mạng
 
-php artisan serve --host 192.168.88.160 --port 8082
+php artisan serve --host 192.168.1.6 --port 8082

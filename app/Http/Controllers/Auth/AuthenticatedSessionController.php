@@ -105,12 +105,11 @@ class AuthenticatedSessionController extends Controller
 
     public function infoAPI() {
 
-        $token = csrf_token();
-
-        if (!empty($token)) {
+        if (Auth::check()) {
+            $token = csrf_token();
             return response(['message' => 'Retrieved successfully', 'errors' => 0, 'token' => $token], 200);
         } else {
-            return response(['message' => 'token do not exist', 'errors' => 1], 200);
+            return response(['message' => 'You are not logged into the system', 'errors' => 1], 200);
         }
         
     }
