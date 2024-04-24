@@ -67,8 +67,11 @@ class AuthenticatedSessionController extends Controller
             $request->session()->regenerate();
             $token = csrf_token();
             RateLimiter::clear($throttleKey);
+
+            $id = Auth::id();
+            $nhanvien =  Nhansu::firstWhere('MANV', $id);
     
-            return response(['message' => 'Login successfully', 'token' => $token, 'errors' => 0], 200);
+            return response(['message' => 'Login successfully', 'token' => $token, 'permission' => $nhanvien->QUANTRI, 'errors' => 0], 200);
         } 
         else{ 
             return response(['message' => 'Login failed', 'errors' => 1], 200);
@@ -106,8 +109,10 @@ class AuthenticatedSessionController extends Controller
     public function infoAPI() {
 
         if (Auth::check()) {
+            $id = Auth::id();
+            $nhanvien =  Nhansu::firstWhere('MANV', $id);
             $token = csrf_token();
-            return response(['message' => 'Retrieved successfully', 'errors' => 0, 'token' => $token], 200);
+            return response(['message' => 'Retrieved successfully', 'errors' => 0, 'token' => $token, 'permission' => $nhanvien->QUANTRI], 200);
         } else {
             return response(['message' => 'You are not logged into the system', 'errors' => 1], 200);
         }

@@ -30,19 +30,11 @@ class AuthAPI
 
                 if ($header === $token) {
                     
-                    $id = Auth::id();
-                    $check =  Nhansu::firstWhere('MANV', $id);
-
-                    if ($check->QUANTRI === 'nhanvien') {
-                        return $next($request)
-                        ->header('Access-Control-Allow-Origin', 'http://localhost:8081')
-                        ->header('Access-Control-Allow-Methods', '*')
-                        ->header('Access-Control-Allow-Credentials', 'true')
-                        ->header('Access-Control-Allow-Headers', 'X-CSRF-Token');
-                    }
-                    else {
-                        return response(['message' => 'You are not authorized to use the system', 'errors' => 1], 200);
-                    }
+                    return $next($request)
+                    ->header('Access-Control-Allow-Origin', 'http://localhost:8081')
+                    ->header('Access-Control-Allow-Methods', '*')
+                    ->header('Access-Control-Allow-Credentials', 'true')
+                    ->header('Access-Control-Allow-Headers', 'X-CSRF-Token');
 
                 }
                 else {
