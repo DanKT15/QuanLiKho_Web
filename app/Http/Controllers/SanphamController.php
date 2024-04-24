@@ -73,13 +73,15 @@ class SanphamController extends Controller
 
         try {
             
-            Sanpham::create([
+            $idsp = Sanpham::insertGetId([
                 'TENSP' => $request->TENSP,
                 'MALOAI' => $request->MALOAI,
                 'MANCC' => $request->MANCC,
                 'THONGTIN' => $request->THONGTIN,
                 'GIASP' => $request->GIASP
             ]);
+
+            Sanpham::where('MASP', $idsp)->update(['qrcode' => $idsp]);
 
             return back()->with('alert', 'Tạo sản phẩm thành công');
 
@@ -449,4 +451,5 @@ class SanphamController extends Controller
         return $pdf->stream();
 
     }
+
 }

@@ -44,7 +44,7 @@
                                 <th>Địa chỉ NCC</th>
                                 <th>Thông tin</th>
                                 <th>Giá sản phẩm</th>
-
+                                <th>QR Code</th>
                                 <th>Chức năng</th>
                             </tr>
                         </thead>
@@ -77,6 +77,7 @@
                                         
                                         <td>{{ $value['THONGTIN'] }}</td>
                                         <td>{{ $value['GIASP'] }}</td>
+                                        <td>{{ QrCode::size(70)->generate($value['qrcode']) }}</td>
 
                                         <td>
                                             
