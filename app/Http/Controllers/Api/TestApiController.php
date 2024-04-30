@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Nhansu;
 use App\Models\Phieunhapxuat;
+use App\Models\DCnhapxuat;
 
 class TestApiController extends Controller
 {
@@ -24,7 +25,7 @@ class TestApiController extends Controller
         ->select('sanpham.MASP','sanpham.TENSP','tonkho.SLNHAP','tonkho.SLXUAT','tonkho.SLTONKHO')
         ->get();
 
-        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach ton kho', 'ton kho' => $thongke], 200);
+        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach ton kho', 'ton kho' => $thongke, 'errors' => 0], 200);
     }
 
     public function phieukiem() {
@@ -43,7 +44,7 @@ class TestApiController extends Controller
         ->select('phieunhapxuat.id','phieunhapxuat.SOPHIEU','users.TENNV','dcnhapxuat.TENDC','trangthai.TENTT', 'phieunhapxuat.NGAYLAP')
         ->get();
 
-        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieu kiem' => $phieu], 200);
+        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieu kiem' => $phieu, 'errors' => 0], 200);
     }
 
     public function phieukiemct($id) {
@@ -80,7 +81,7 @@ class TestApiController extends Controller
         ->select('sanpham.MASP','sanpham.TENSP','ct_nhapxuat.SOLUONG','ct_nhapxuat.DONGIA','ct_nhapxuat.THANHTIEN')
         ->get();
 
-        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieu kiem' => $phieu, 'chitiet' => $phieudata], 200);
+        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieu kiem' => $phieu, 'chitiet' => $phieudata, 'errors' => 0], 200);
     }
 
     public function testpost(Request $request) {
@@ -90,7 +91,8 @@ class TestApiController extends Controller
         return response(['message' => 'Post-test Retrieved successfully', 'data' => $data['object'][0]['sl']], 200);
     }
 
-    public function testget() {
-        return response()->json(['message' => 'Post-test Retrieved successfully'], 200);
+    public function getdiachi() {
+        $diachi = DCnhapxuat::all();
+        return response()->json(['message' => 'Post-test Retrieved successfully', 'diachi' => $diachi, 'errors' => 0], 200);
     }
 }

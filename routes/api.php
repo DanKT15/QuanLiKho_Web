@@ -27,12 +27,13 @@ Route::get('/test/tonkho', [TestApiController::class, 'tonkho'])->middleware(['A
 Route::get('/test/phieukiem', [TestApiController::class, 'phieukiem'])->middleware(['Apiuser']);
 Route::get('/test/phieukiemct/{id}', [TestApiController::class, 'phieukiemct'])->middleware(['Apiuser']);
 Route::post('/test/testpost', [TestApiController::class, 'testpost']);
-Route::get('/test/testget', [TestApiController::class, 'testget']);
+Route::get('/getdiachi', [TestApiController::class, 'getdiachi'])->middleware(['Apiuser']);
 
 
 // phieu nhap
-Route::get('/getdata/{id}', [PhieunhapxuatController::class, 'show'])->middleware(['Apiuser']);
+Route::get('/getctphieu/{id}', [PhieunhapxuatController::class, 'show'])->middleware(['Apiuser']);
 Route::post('/addphieu', [PhieunhapxuatController::class, 'store'])->middleware(['Apiuser']);
+Route::get('/getsp/{id}', [PhieunhapxuatController::class, 'showSP'])->middleware(['Apiuser']);
 
 // login api
 Route::post('login', [AuthenticatedSessionController::class, 'storeAPI']);

@@ -156,4 +156,21 @@ class PhieunhapxuatController extends Controller
         
     }
 
+    public function showSP($id){   // Lấy chi tiết của một dữ liệu: GET
+
+        try {
+            $Sanpham = Sanpham::find($id);
+
+            if (empty($Sanpham)) {
+                return response(['message' => 'Sanpham này không tồn tại', 'errors' => 1], 200);
+            } 
+
+            return response(['message' => 'Retrieved successfully', 'errors' => 0, 'Sanpham' => $Sanpham], 200);
+
+        } catch (Exception $err) {
+            return response(['message' => $err->getMessage(), 'errors' => 1], 200);
+        }
+        
+    }
+
 }

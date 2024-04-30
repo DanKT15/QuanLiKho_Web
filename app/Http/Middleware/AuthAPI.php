@@ -23,25 +23,24 @@ class AuthAPI
 
         if (Auth::check()) {
 
-            $header = $request->header('X-CSRF-TOKEN');
+            $header = $request->header("Authorization");
             $token = csrf_token();
 
-            if (!empty($header) && !empty($token)) {
+            if (!empty($token)) {
+                if (!empty($header)) {
 
-                if ($header === $token) {
-                    
-                    return $next($request)
-                    ->header('Access-Control-Allow-Origin', 'http://localhost:8081')
-                    ->header('Access-Control-Allow-Methods', '*')
-                    ->header('Access-Control-Allow-Credentials', 'true')
-                    ->header('Access-Control-Allow-Headers', 'X-CSRF-Token');
-
-                }
+                    if ($header === $token) {
+                        return $next($request);
+                    }
+                    else {
+                        return response(['message' => 'Unable to validate token', 'errors' => 1], 200);
+                    }
+    
+                } 
                 else {
-                    return response(['message' => 'Unable to validate token', 'errors' => 1], 200);
+                    return response(['message' => 'Requires header for authentication', 'errors' => 1], 200);
                 }
-
-            } 
+            }
             else {
                 return response(['message' => 'Requires token for authentication', 'errors' => 1], 200);
             }
