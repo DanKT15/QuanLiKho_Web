@@ -44,7 +44,7 @@ class TestApiController extends Controller
         ->select('phieunhapxuat.id','phieunhapxuat.SOPHIEU','users.TENNV','dcnhapxuat.TENDC','trangthai.TENTT', 'phieunhapxuat.NGAYLAP')
         ->get();
 
-        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieu kiem' => $phieu, 'errors' => 0], 200);
+        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieukiem' => $phieu, 'errors' => 0], 200);
     }
 
     public function phieukiemct($id) {
@@ -81,7 +81,7 @@ class TestApiController extends Controller
         ->select('sanpham.MASP','sanpham.TENSP','ct_nhapxuat.SOLUONG','ct_nhapxuat.DONGIA','ct_nhapxuat.THANHTIEN')
         ->get();
 
-        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieu kiem' => $phieu, 'chitiet' => $phieudata, 'errors' => 0], 200);
+        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach phieu kiem', 'phieukiem' => $phieu, 'chitiet' => $phieudata, 'errors' => 0], 200);
     }
 
     public function testpost(Request $request) {
