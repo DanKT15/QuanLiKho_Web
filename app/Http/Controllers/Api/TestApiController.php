@@ -25,7 +25,7 @@ class TestApiController extends Controller
         ->select('sanpham.MASP','sanpham.TENSP','tonkho.SLNHAP','tonkho.SLXUAT','tonkho.SLTONKHO')
         ->get();
 
-        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach ton kho', 'ton kho' => $thongke, 'errors' => 0], 200);
+        return response(['message' => 'Retrieved successfully', 'name' => 'danh sach ton kho', 'tonkho' => $thongke, 'errors' => 0], 200);
     }
 
     public function phieukiem() {

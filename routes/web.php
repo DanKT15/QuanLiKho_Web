@@ -166,5 +166,7 @@ Route::get('qr-code', function () {
 });
 
 
-
-
+// bật lên sẽ làm local ko hoạt động
+// add URL to use https: can use css, js file
+// use Illuminate\Support\Facades\URL;
+// URL::forceScheme('https');
